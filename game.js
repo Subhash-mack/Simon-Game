@@ -3,6 +3,7 @@ var level = 0;
 var started = false;
 var clicked = false;
 var clickCount = 0;
+
 $(document).on('keypress', function () {
     if (!started) {
         nextSequence();
@@ -22,6 +23,7 @@ $("h1").on("touchstart", function () {
             clicked = true;
         }
     });
+
 }
 var gamePattern = [];
 var userPattern = [];
