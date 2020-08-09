@@ -1,21 +1,28 @@
 var colors = ['blue', 'green', 'red', 'yellow'];
 var level = 0;
 var started = false;
+var clicked=false;
 var clickCount=0;
 $(document).on('keypress', function () {
     if (!started) {
         nextSequence();
         $("#level-title").text("Level " + level);
         started = true;
+        clicked=true;
     }
 });
-$(document).on('click',function () {
+
+if(!clicked)
+{
+$(document).dblclick(function () {
     if (!started) {
         nextSequence();
         $("#level-title").text("Level " + level);
         started = true;
+        clicked =  true;
     }
 });
+}
 var gamePattern = [];
 var userPattern = [];
 
@@ -68,6 +75,7 @@ function checkAnswer() {
 
         }, 300);
         $("#level-title").text("Game Over. Press Any Key to play again.");
+        console.log("gameover");
         startOver();
     }
 }
@@ -77,6 +85,7 @@ function startOver() {
     gamePattern = [];
     userPattern=[];
     started = false;
+    clicked=false;
 }
 
 function iteration(t) {
@@ -92,7 +101,7 @@ function iteration(t) {
     function task() {
         setTimeout(function () {
             nextSequence()
-        }, 800 * a)
+        }, 1000 * a)
     };
 
 
