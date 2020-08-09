@@ -1,21 +1,28 @@
 var colors = ['blue', 'green', 'red', 'yellow'];
 var level = 0;
 var started = false;
-var clickCount=0;
+var clicked = false;
+var clickCount = 0;
 $(document).on('keypress', function () {
     if (!started) {
         nextSequence();
         $("#level-title").text("Level " + level);
         started = true;
+        clicked = true;
     }
 });
-$(document).on('click',function () {
-    if (!started) {
-        nextSequence();
-        $("#level-title").text("Level " + level);
-        started = true;
-    }
-});
+if(!clicked)
+{
+$("h1").on("touchstart", function () {
+        console.log("tapped");
+        if (!started) {
+            nextSequence();
+            $("#level-title").text("Level " + level);
+            started = true;
+            clicked = true;
+        }
+    });
+}
 var gamePattern = [];
 var userPattern = [];
 
@@ -45,20 +52,19 @@ function animatePress(currentColor) {
         $("#" + currentColor).removeClass("pressed");
     }, 100);
 }
-var counter=0;
+var counter = 0;
+
 function checkAnswer() {
-    if ((userPattern[counter]) === (gamePattern[counter]) && gamePattern.length>0)
-     {
-         console.log("in");
-         counter++;
-         if(gamePattern.length===userPattern.length)
-         {
-             console.log("inin");
-                level++;
-                counter=0;
-        $("#level-title").text("Level " + level);
-        iteration(level);
-         }
+    if ((userPattern[counter]) === (gamePattern[counter]) && gamePattern.length > 0) {
+        console.log("in");
+        counter++;
+        if (gamePattern.length === userPattern.length) {
+            console.log("inin");
+            level++;
+            counter = 0;
+            $("#level-title").text("Level " + level);
+            iteration(level);
+        }
     } else {
         $("body").addClass("game-over")
         var audio = new Audio("sounds/wrong.mp3");
@@ -67,7 +73,8 @@ function checkAnswer() {
             $("body").removeClass("game-over");
 
         }, 300);
-        $("#level-title").text("Game Over. Press Any Key to play again.");
+        $("#level-title").text("Game Over. Press Any Key or tap here to play again.");
+        console.log("gameover");
         startOver();
     }
 }
@@ -75,8 +82,9 @@ function checkAnswer() {
 function startOver() {
     level = 0;
     gamePattern = [];
-    userPattern=[];
+    userPattern = [];
     started = false;
+    clicked = false;
 }
 
 function iteration(t) {
@@ -92,7 +100,7 @@ function iteration(t) {
     function task() {
         setTimeout(function () {
             nextSequence()
-        }, 800 * a)
+        }, 1000 * a)
     };
 
 
