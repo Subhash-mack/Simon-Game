@@ -9,6 +9,13 @@ $(document).on('keypress', function () {
         started = true;
     }
 });
+$(document).on('click',function () {
+    if (!started) {
+        nextSequence();
+        $("#level-title").text("Level " + level);
+        started = true;
+    }
+});
 var gamePattern = [];
 var userPattern = [];
 
